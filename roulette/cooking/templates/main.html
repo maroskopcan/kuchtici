@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="cz">
+<head>
+    <meta charset="UTF-8">
+    <title>Co budeme vařit? Kuchařská ruleta</title>
+</head>
+<body>
+<h1>Kuchařská ruleta</h1>
+
+<p>
+<a href="roulette/">Spust ruletu - vylosuj jidlo</a>
+</p>
+
+<form action="upload/" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Upload All Receipts">
+    <br>
+    Nacteni zakladni DB receptu <br>
+    <br>
+    <br>
+</form>
+
+<form action="del_all/" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Smaz vse">
+    <br>
+    Smazani vsech receptu <br>
+    <br>
+    <br>
+</form>
+
+<table border="1">
+{% for x in myreceipts %}
+<tr>
+    <td>{{ x.rec_title }}</td>
+    <td>{{ x.author }}</td>
+    <td>{{ x.rating }}</td>
+
+</tr>
+{% endfor %}
+</table>
+
+</body>
+</html>

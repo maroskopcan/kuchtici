@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Food roulette</title>
+</head>
+<body>
+
+    <table>
+        <tr>
+            <td>Nazev</td>
+            <td>{{ receipt.rec_title }}</td>
+            <td>Autor</td>
+            <td>{{ receipt.author }}</td>
+            <td>Hodnoceni</td>
+            <td>{{ receipt.rating }}</td>
+
+        </tr>
+    </table>
+
+<table border="1">
+        {% for x in ingr %}
+        <tr>
+            <td>{{ x.ingr_name }}</td>
+            <td>{{ x.quantity }}</td>
+            <td>{{ x.unit }}</td>
+
+        </tr>
+        {% endfor %}
+    </table>
+
+<table border="1">
+    <tr>
+        <td>{{ receipt.process }}</td>
+    </tr>
+
+</table>
+
+</body>
+</html>

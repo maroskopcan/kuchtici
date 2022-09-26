@@ -29,13 +29,12 @@
     <br>
 </form>
 
-<table border="1">
+<table>
 {% for x in myreceipts %}
 <tr>
     <td>{{ x.rec_title }}</td>
     <td>{{ x.author }}</td>
     <td>{{ x.rating }}</td>
-
 </tr>
 {% endfor %}
 </table>

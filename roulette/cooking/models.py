@@ -1,5 +1,6 @@
+from django.contrib.auth import get_user_model
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
-
 
 class Receipts(models.Model):
     rec_title = models.CharField(max_length=255)
@@ -16,7 +17,19 @@ class Ingredients(models.Model):
     ingr_name = models.CharField(max_length=64)
     price = models.DecimalField(decimal_places=2,max_digits=6, blank=True)
 
-
+class ReceiptRating(models.Model):
+    receipt = models.ForeignKey(
+        Receipts, related_name="review",
+        on_delete=models.CASCADE
+    )
+    score = models.IntegerField(
+        validators=[MinValueValidator(0), MaxValueValidator(5)]
+    )
+    user = models.ForeignKey(
+        get_user_model(), related_name="user_reviews",
+        on_delete=models.CASCADE
+    )
+    text = models.TextField()
 
 
 

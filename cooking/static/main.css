@@ -1,0 +1,144 @@
+.nadpis {
+        position: relative;
+        top: 20px;
+        margin-top: 5px;
+        text-align: center;
+        font-size: 28px;
+        color: #ff3300;
+        cursor: pointer;
+}
+.centerOBR {
+        position: relative;
+        margin-top: 20px;
+        padding: 1px;
+        border: 15px;
+        text-align: center;
+}
+.buttonSpustRuletu {
+        background-color:#66ff99;
+        color:#ff5c33;
+
+        margin-left: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        margin-top: 25px;
+        text-align: center;
+        font-size: 20px;
+        width: 350px;
+        border: solid black;
+
+        cursor: pointer;
+        text-decoration: none;
+}
+.button1 {
+        background-color:#e7dcda;
+        color: #2cc145;
+        width: 250px;
+        height: 50px;
+
+        position: relative;
+        top: 60%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        border: solid;
+        cursor: pointer;
+}
+.button2 {
+        background-color: #e7dcda;            /* TOTO: #e7dcda */
+        color: #ff3300;                      /* TOTO: #e7dcda */
+        width: 250px;
+        height: 50px;
+
+        position: relative;
+        margin-top: 20px;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        border: solid;
+        cursor: pointer;
+}
+.center2 {
+        margin: 0;
+        position: absolute;
+        top: 60%;
+        left: 30%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+}
+.center3 {
+        margin: 0;
+        position: absolute;
+        top: 60%;
+        left: 70%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+}
+
+a {
+    display: block;
+    padding: 20px 25px;                             /*uomznuje kliknut a prepojit odkyz na celej ploche tlacitka*/
+    text-decoration: none;                          /*zmazuje podcirknutie textu*/
+}
+
+.centerTabulka {
+    margin: 0% 10%;
+    width: 60%;
+    border-collapse: collapse;
+}
+.centerTabulka th {
+    background-color: #d58787;
+    color: black;
+    border: 1px solid;
+}
+.centerTabulka td {
+    background-color: #e7dcda;
+    color: black;
+    border: 1px solid;
+}
+
+
+
+#suroviny {
+    margin: 0% 10%;
+    width: 40%;
+    border-collapse: collapse;
+}
+#suroviny th {
+    background-color: #4a90e2;
+    color: black;
+    border: 1px solid;
+}
+#suroviny td {
+    background-color: #cfe2f3;
+    color: black;
+    border: 1px solid;
+}
+
+#popis {
+    padding-left: 10%;
+}
+
+
+
+
+/*
+    #Tab_suroviny {
+        margin: 0% 10%;
+        width: 40%;
+        border-collapse: collapse;
+    }
+    #Tab_suroviny th {
+        background-color:#4a90e2;
+        color: black;
+        border: 1px solid;
+    }
+    #Tab_suroviny td {
+        background-color: #cfe2f3;
+        color: black;
+        border: 1px solid;
+*/
+
+
+
+

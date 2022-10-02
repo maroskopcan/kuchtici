@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
-class Receipts(models.Model):
+class Receipt(models.Model):
     rec_title = models.CharField(max_length=255)
     author = models.CharField(max_length=255)
     rating = models.DecimalField(decimal_places=0, max_digits=3)
@@ -10,7 +10,7 @@ class Receipts(models.Model):
 
 class Ingredients(models.Model):
     rec_id = models.ManyToManyField(
-        Receipts, related_name="receipts",
+        Receipt, related_name="receipts",
     )
     quantity = models.DecimalField(decimal_places=2, max_digits=5)
     unit = models.CharField(max_length=16)
@@ -19,7 +19,7 @@ class Ingredients(models.Model):
 
 class ReceiptRating(models.Model):
     receipt = models.ForeignKey(
-        Receipts, related_name="review",
+        Receipt, related_name="review",
         on_delete=models.CASCADE
     )
     score = models.IntegerField(

@@ -1,40 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cz">
 <head>
     <meta charset="UTF-8">
-    <title>Food roulette</title>
+    <title>Food roulette</title>                                    <!-- to co sa vypise v liste -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+    <style>body {background-color: #e5fff9;}</style>
 </head>
+
+
 <body>
+<div class="nadpis">
+    <h1 style="margin: 3px;">Kuchařská ruleta</h1>
+</div>
+<div class="centerOBR">
+    <img src="https://www.sazeni-online.eu/images/blog/ca0a4d2799ace80811fdefb3e7400057.jpg" alt="Ruleta s jídlem"
+         width="600"
+         height="250">
+</div>
+<div id="popis">
+    <h2 style="margin: 15px 0px;">Název receptu: {{ receipt.rec_title }}</h2>
+    <h3 style="margin: 5px 0px;">Autor: {{ receipt.author }}</h3>
+    <h3 style="margin-bottom: 40px;">Hodnocení: {{ receipt.rating }}</h3>
+    <h3>Co potřebujeme:</h3>
+</div>
 
-    <table>
-        <tr>
-            <td>Nazev</td>
-            <td>{{ receipt.rec_title }}</td>
-            <td>Autor</td>
-            <td>{{ receipt.author }}</td>
-            <td>Hodnoceni</td>
-            <td>{{ receipt.rating }}</td>
-
-        </tr>
-    </table>
-
-<table border="1">
-        {% for x in ingr %}
-        <tr>
-            <td>{{ x.ingr_name }}</td>
-            <td>{{ x.quantity }}</td>
-            <td>{{ x.unit }}</td>
-
-        </tr>
-        {% endfor %}
-    </table>
-
-<table border="1">
+<table id="suroviny">
     <tr>
-        <td>{{ receipt.process }}</td>
+        <th width="50%"> název ingredience</th>
+        <th width="30%">množství</th>
+        <th width="20%">jednotka</th>
     </tr>
-
+    {% for x in ingr %}
+    <tr>
+        <td>{{ x.ingr_name }}</td>
+        <td align="center">{{ x.quantity }}</td>
+        <td align="center">{{ x.unit }}</td>
+    </tr>
+    {% endfor %}
 </table>
+<br>
+<!--style="padding-left:10%; padding-right:10%"-->
+<div class="odsadenie">
+    <h3 style="padding-left:10%; padding-right:10%">Postup: </h3>
+    <div style="padding-left:10%; padding-right:10%; padding-bottom:150px;">{{ receipt.process }}</div>
+</div>
 
 </body>
 </html>

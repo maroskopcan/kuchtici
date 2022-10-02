@@ -1,5 +1,5 @@
 import json
-from models import Receipts, Ingredients
+from models import Receipt, Ingredients
 
 with open('receipts.json', 'rb') as fp:
     receipts_load = json.load(fp)
@@ -19,7 +19,7 @@ for rl in receipts_load:
         else:
             i2 = Decimal(i2)
         i3 = item[1]
-        i = Ingredient(ingr_name=i1, quantity=i2, unit=i3, price=0)
+        i = Ingredients(ingr_name=i1, quantity=i2, unit=i3, price=0)
         i.save()
         i.rec_id.add(r)
 

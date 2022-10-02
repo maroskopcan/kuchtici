@@ -4,10 +4,11 @@ from django.urls import reverse
 from django.views import View
 from django.views.generic import TemplateView
 from .forms import ReceiptRatingForm
-from cooking.models import Receipt, Ingredients
+
+from .models import Receipt, Ingredients
 #from .forms import ReceiptRatingFrom
 from django.contrib.auth.models import User
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect
 from decimal import Decimal
 from random import choice
 import json
@@ -29,13 +30,14 @@ def roulette(request):
     }
     return HttpResponse(template.render(context, request))
 
-#def homepage_view(request):
-#    myreceipts = Receipts.objects.all().values()
-#    template = loader.get_template('main.html')
-#    context = {
-#        'myreceipts': myreceipts,
-#    }
-#    return HttpResponse(template.render(context, request))
+# def homepage_view(request):
+#     myreceipts = Receipts.objects.all().values()
+#     template = loader.get_template('main.html')
+#     context = {
+#         'myreceipts': myreceipts,
+#     }
+#     return HttpResponse(template.render(context, request))
+
 
 class HomepageView(TemplateView):
     template_name = "main.html"
@@ -82,10 +84,3 @@ class ListReceiptRatingView(TemplateView):
         return context
 
     # v main na recepte tlacitko ohodnot recept <a href="{% url 'receipt_rating' receipt.pk %}" class="btn btn-success">Hodnocení</a>
-
-
-def main(request):
-    return render(request, 'main.html')
-
-def receipt(request):
-    return render(request, 'roulette.html')

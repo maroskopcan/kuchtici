@@ -1,9 +1,14 @@
 <!DOCTYPE html>
-<html lang="cz" xmlns="http://www.w3.org/1999/html">
+<html lang="cz">
+<!-- <html lang="cz" xmlns="http://www.w3.org/1999/html"> -->
 <head>
     <meta charset="UTF-8">
-    <title>Co budeme vařit? Kuchařská ruleta</title>
+    <title>Co budeme vařit? Kuchařská ruleta</title>                        <!-- to co sa vypise v liste -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+    <style>body {background-color: #e5fff9;}</style>
 
+<!-- toto som pridal - od Verci -->
     {% if messages %}
         {% for message in messages %}
             <div class="alert alert-{{ messages.tags }}">
@@ -11,65 +16,93 @@
             </div>
         {% endfor %}
     {% endif %}
+<!-- toto som pridal - od Verci -->
+
 
 </head>
+
+
 <body>
-<h1>Kuchařská ruleta</h1>
-    <header class="site-header">
-        <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
-            <div class="container">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+<div class="nadpis">
+    <h1 style="margin: 3px;">Kuchařská ruleta</h1>
+</div>
+<div class="centerOBR">
+    <img src="https://www.sazeni-online.eu/images/blog/ca0a4d2799ace80811fdefb3e7400057.jpg" alt="Ruleta s jídlem"
+         width="600"
+         height="250">
+</div>
+
+<!-- toto som pridal - od Verci -->
+<header class="site-header">
+    <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
+                    aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarToggle">
-                    <div class="navbar-nav mr-auto">
-                      <a class="nav-item nav-link" href="/">Domov</a>
-                      <a class="nav-item nav-link" href="/about">O téhle stránce</a>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarToggle">
+                <div class="navbar-nav mr-auto">
+                    <a class="nav-item nav-link" href="/">Domov</a>
+                    <a class="nav-item nav-link" href="/about">O téhle stránce</a>
                 </div>
-        <!-- Navigation bar Right Side -->
+                <!-- Navigation bar Right Side -->
                 <div class="navbar-nav">
                     {% if request.user.is_authenticated %}
-                        <a class="nav-item nav-link" href="{% url 'logout' %}">Odhlášení</a>
+                    <a class="nav-item nav-link" href="{% url 'logout' %}">Odhlášení</a>
                     {% else %}
-                        <a class="nav-item nav-link" href="{% url 'login' %}">Přihlášení</a>
-                        <a class="nav-item nav-link" href="{% url 'register' %}">Registrace</a>
+                    <a class="nav-item nav-link" href="{% url 'login' %}">Přihlášení</a>
+                    <a class="nav-item nav-link" href="{% url 'register' %}">Registrace</a>
                     {% endif %}
                 </div>
-                </div>
             </div>
-        </nav>
-    </header>
-<p>
-<a href="roulette/">Spust ruletu - vylosuj jidlo</a>
-</p>
+        </div>
+    </nav>
+</header>
+<!-- toto som pridal - od Verci -->
+
+<h3>
+    <button class="buttonSpustRuletu">
+        <a href="roulette/"><strong>Spusť ruletu!</strong></a>
+    </button>                                               <!--<i> * Vylosuje jídlo</i>-->
+</h3>
 
 <form action="upload/" method="post">
     {% csrf_token %}
-    <input type="submit" value="Upload All Receipts">
-    <br>
-    Nacteni zakladni DB receptu <br>
-    <br>
-    <br>
+    <div>
+        <button class="button1"
+                type="submit"><strong>Ukáže všechny recepty</strong>
+        </button>                                           <!--<i> * Načte základní DB receptů</i>-->
+    </div>
 </form>
+
 
 <form action="del_all/" method="post">
     {% csrf_token %}
-    <input type="submit" value="Smaz vse">
-    <br>
-    Smazani vsech receptu <br>
-    <br>
-    <br>
+    <div>
+        <button class="button2"
+                type="submit"><strong>Smaž vše</strong>
+        </button>                                           <!--<i> * Smaže všechny recepty</i>-->
+    </div>
 </form>
 
-<table>
-{% for x in myreceipts %}
-<tr>
-    <td>{{ x.rec_title }}</td>
-    <td>{{ x.author }}</td>
-    <td>{{ x.rating }}</td>
-</tr>
-{% endfor %}
-</table>
+<div>
+    <table style="align:center" class="centerTabulka">
+        <tr>
+            <th>Název receptu</th>
+            <th>Autor</th>
+            <th>Hodnocení</th>
+        </tr>
+        {% for x in myreceipts %}
+        <tr>
+            <td style="width:70%">{{ x.rec_title }}</td>
+            <td style="width:20%" align="center">{{ x.author }}</td>
+            <td style="width:10%" align="center">{{ x.rating }}</td>
+        </tr>
+        {% endfor %}
 
+    </table>
+    <p style="padding-bottom:150px;"></p>
+
+</div>
 </body>
 </html>

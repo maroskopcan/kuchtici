@@ -4,11 +4,10 @@ from django.urls import reverse
 from django.views import View
 from django.views.generic import TemplateView
 from .forms import ReceiptRatingForm
-
 from .models import Receipt, Ingredients
 #from .forms import ReceiptRatingFrom
 from django.contrib.auth.models import User
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from decimal import Decimal
 from random import choice
 import json
@@ -30,21 +29,20 @@ def roulette(request):
     }
     return HttpResponse(template.render(context, request))
 
-# def homepage_view(request):
-#     myreceipts = Receipts.objects.all().values()
-#     template = loader.get_template('main.html')
-#     context = {
-#         'myreceipts': myreceipts,
-#     }
-#     return HttpResponse(template.render(context, request))
-
+#def homepage_view(request):
+#    myreceipts = Receipts.objects.all().values()
+#    template = loader.get_template('main.html')
+#    context = {
+#        'myreceipts': myreceipts,
+#    }
+#    return HttpResponse(template.render(context, request))
 
 class HomepageView(TemplateView):
     template_name = "main.html"
     def get_context_data(self, **kwargs):
         context = super(HomepageView, self). get_context_data(**kwargs)
 
-        myreceipts = Receipts.objects.all().values()
+        myreceipts = Receipt.objects.all().values()
         template = loader.get_template('main.html')
 
         return context
@@ -56,7 +54,7 @@ def upload(request):
         p = ""
         for item in rl[4][0]:
             p += item
-        r = Receipts(rec_title=rl[1], author='WEB', rating=5, process=p)
+        r = Receipt(rec_title=rl[1], author='WEB', rating=5, process=p)
         r.save()
 
         for item in rl[3]:
@@ -84,3 +82,10 @@ class ListReceiptRatingView(TemplateView):
         return context
 
     # v main na recepte tlacitko ohodnot recept <a href="{% url 'receipt_rating' receipt.pk %}" class="btn btn-success">Hodnocení</a>
+
+
+def main(request):
+    return render(request, 'main.html')
+
+def receipt(request):
+    return render(request, 'roulette.html')

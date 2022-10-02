@@ -1,5 +1,6 @@
 import json
-from models import Receipt, Ingredients
+from .models import Receipt, Ingredients
+from decimal import Decimal
 
 with open('receipts.json', 'rb') as fp:
     receipts_load = json.load(fp)

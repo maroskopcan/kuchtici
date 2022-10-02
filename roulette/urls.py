@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
-from roulette.cooking.views import HomepageView, roulette, upload, del_all, ListReceiptRatingView, main, receipt
-from roulette.users import views as user_views
+from cooking.views import HomepageView, roulette, upload, del_all, ListReceiptRatingView, main, receipt
+from users import views as user_views
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [

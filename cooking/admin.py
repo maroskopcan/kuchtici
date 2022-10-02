@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from cooking.models import Receipts, Ingredients
+from .models import Receipt, Ingredients
 
 
 class ReceiptAdmin(admin.ModelAdmin):
@@ -8,7 +8,7 @@ class ReceiptAdmin(admin.ModelAdmin):
     list_filter = ("rec_title", )
 
 
-admin.site.register(Receipts, ReceiptAdmin)
+admin.site.register(Receipt, ReceiptAdmin)
 
 
 class IngredientAdmin(admin.ModelAdmin):

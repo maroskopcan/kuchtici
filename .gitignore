@@ -1,3 +1,8 @@
+roulette/db.sqlite3
 .idea/
 venv/
+<<<<<<< HEAD
 db.sqlite3
+=======
+__pycache__
+>>>>>>> be6ba6394580381ea4e010eadb3d6d2c514b8186

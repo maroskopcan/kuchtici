@@ -36,22 +36,32 @@
 <header class="site-header">
     <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
         <div class="container">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
+      <!--  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
                     aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
-            </button>
+            </button>               TOTO JE ZREJME NANIC -->
             <div class="collapse navbar-collapse" id="navbarToggle">
                 <div class="navbar-nav mr-auto">
-                    <a class="nav-item nav-link" href="/">Domov</a>
-                    <a class="nav-item nav-link" href="/about">O téhle stránce</a>
+                    <button class="x">
+                        <a href="/">Domov</a>
+                    </button>
+                    <button class="x">
+                        <a href="/about">O téhle stránce</a>
+                    </button>
                 </div>
                 <!-- Navigation bar Right Side -->
                 <div class="navbar-nav">
                     {% if request.user.is_authenticated %}
-                    <a class="nav-item nav-link" href="{% url 'logout' %}">Odhlášení</a>
+                    <button class="x">
+                        <a href="{% url 'logout' %}">Odhlášení</a>
+                    </button>
                     {% else %}
-                    <a class="nav-item nav-link" href="{% url 'login' %}">Přihlášení</a>
-                    <a class="nav-item nav-link" href="{% url 'register' %}">Registrace</a>
+                    <button class="x">
+                        <a href="{% url 'login' %}">Přihlášení</a>
+                    </button>
+                    <button class="x">
+                        <a href="{% url 'register' %}">Registrace</a>
+                    </button>
                     {% endif %}
                 </div>
             </div>
@@ -62,7 +72,7 @@
 
 <h3>
     <button class="buttonSpustRuletu">
-        <a href="roulette/"><strong>Spusť ruletu!</strong></a>
+        <a href="{% url 'roulette' %}"><strong>Spusť ruletu!</strong></a>      <!-- href="{% url 'roulette' %}" -->
     </button>                                               <!--<i> * Vylosuje jídlo</i>-->
 </h3>
 
@@ -99,10 +109,9 @@
             <td style="width:10%" align="center">{{ x.rating }}</td>
         </tr>
         {% endfor %}
-
     </table>
-    <p style="padding-bottom:150px;"></p>
 
+    <p style="padding-bottom:150px;"></p>
 </div>
 </body>
 </html>

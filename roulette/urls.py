@@ -1,11 +1,12 @@
 from django.contrib import admin
 from django.urls import path
-from cooking.views import HomepageView, roulette, upload, del_all, ListReceiptRatingView, main, receipt
+from cooking.views import homepage_view, roulette, upload, del_all, ListReceiptRatingView, main, receipt
 from users import views as user_views
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    path('', HomepageView.as_view(), name='homepage'),
+    path('', homepage_view, name='homepage'),
+    #path('', HomepageView.as_view(), name='homepage'),
     path('admin/', admin.site.urls),
     path('roulette/', roulette, name='roulette'),
     path('upload/', upload, name='upload'),
@@ -15,5 +16,5 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
     path('', main),
-    path('roulette/', receipt),
+    #path('roulette/', receipt),
 ]  #+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

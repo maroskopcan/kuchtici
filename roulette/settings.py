@@ -127,7 +127,6 @@ STATIC_ROOT = 'roulette/cooking/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = 'homepage'

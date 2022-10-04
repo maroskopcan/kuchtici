@@ -29,28 +29,33 @@ def roulette(request):
     }
     return HttpResponse(template.render(context, request))
 
-#def homepage_view(request):
-#    myreceipts = Receipts.objects.all().values()
-#    template = loader.get_template('main.html')
-#    context = {
-#        'myreceipts': myreceipts,
-#    }
-#    return HttpResponse(template.render(context, request))
+def homepage_view(request):
+   myreceipts = Receipt.objects.all().values()
+   template = loader.get_template('main.html')
+   context = {
+       'myreceipts': myreceipts,
+   }
+   return HttpResponse(template.render(context, request))
 
-class HomepageView(TemplateView):
-    template_name = "main.html"
-    def get_context_data(self, **kwargs):
-        context = super(HomepageView, self). get_context_data(**kwargs)
+# class HomepageView(TemplateView):
+#     template_name = "main.html"
+#     def get_context_data(self, **kwargs):
+#         context = super(HomepageView, self).get_context_data(**kwargs)
+#
+#         myreceipts = Receipt.objects.all().values()
+#         template = loader.get_template('main.html')
+#         return context
 
-        myreceipts = Receipt.objects.all().values()
-        template = loader.get_template('main.html')
 
-        return context
+
+
+
 def upload(request):
     with open('receipts.json', 'rb') as fp:
         receipts_load = json.load(fp)
 
     for rl in receipts_load:
+        print(rl)
         p = ""
         for item in rl[4][0]:
             p += item

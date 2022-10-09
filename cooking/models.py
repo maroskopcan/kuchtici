@@ -18,6 +18,11 @@ class Ingredients(models.Model):
     ingr_name = models.CharField(max_length=64)
     price = models.DecimalField(decimal_places=2, max_digits=6, blank=True)
 
+class Category(models.Model):
+    category_id = models.ManyToManyField(
+        Receipts, related_name="category",
+    )
+    category_name = models.CharField(max_length=64, blank=True)
 class ReceiptRating(models.Model):
     receipt = models.ForeignKey(
         Receipt, related_name="review",

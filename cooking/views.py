@@ -11,9 +11,86 @@ from django.shortcuts import redirect, render
 from decimal import Decimal
 from random import choice
 import json
+from bs4 import BeautifulSoup
+import requests
 
+
+def update_rec_form(request, id):
+    t = request.POST['rec_t']
+    a = request.POST['rec_a']
+    receipt = Receipts.objects.get(id=id)
+    receipt.rec_title = t
+    receipt.author = a
+
+    receipt.save()
+    return HttpResponseRedirect(reverse('homepage'))
+def add_ingredients(request, id):
+    i1 = request.POST['i_name']
+    i2 = request.POST['i_quant']
+    i3 = request.POST['i_unit']
+    i4 = 0
+    i = Ingredients(ingr_name=i1, quantity=i2, unit=i3, price=i4)
+    i.save()
+    i.rec_id.add(id)
+    red = redirect("/update_rec/"+str(id))
+    return red
+def update_rec(request, id):
+    upd_ = Receipts.objects.get(id=id)
+    ingr = Ingredients.objects.filter(rec_id = id)
+    template = loader.get_template('update_rec.html')
+    context = {
+        'upd_': upd_,
+        'ingr': ingr,
+    }
+    return HttpResponse(template.render(context, request))
+def update_rec_form(request, id):
+    t = request.POST['rec_t']
+    a = request.POST['rec_a']
+    receipt = Receipts.objects.get(id=id)
+    receipt.rec_title = t
+    receipt.author = a
+
+    receipt.save()
+    return HttpResponseRedirect(reverse('admin_tools'))
+
+def delete_rec(request, id):
+    del_ = Receipts.objects.get(id=id)
+    del_.delete()
+    return redirect("admin_tools")
+
+def add_receipt_form(request):
+    x = request.POST['recepis']
+    y = request.POST['autor']
+    z = request.POST['ratex']
+    rece_ = Receipts(rec_title=x, author=y, rating=z)
+    rece_.save()
+    return HttpResponseRedirect(reverse('admin_tools'))
+def scrap(request):
+    url = request.POST['url_name']
+    receipts = scrap_main(url)
+    p = ""
+    for item in receipts[3][0]:
+        p += item
+    r = Receipts(rec_title=receipts[0], author='WEB', rating=5, process=p)
+    r.save()
+
+    for item in receipts[2]:
+        i1 = item[2]
+        i2 = item[0]
+        if i2 == "":
+            i2 = 0
+        else:
+            i2 = Decimal(i2)
+        i3 = item[1]
+        i = Ingredients(ingr_name=i1, quantity=i2, unit=i3, price=0)
+        i.save()
+        i.rec_id.add(r)
+    return redirect("admin_tools")
 
 def del_all(request):
+    Receipts.objects.all().delete()
+    return redirect('/admin_tools')
+
     Receipt.objects.all().delete()
     return HttpResponseRedirect(reverse('homepage'))
 
@@ -73,7 +150,8 @@ def upload(request):
             i = Ingredients(ingr_name=i1, quantity=i2, unit=i3, price=0)
             i.save()
             i.rec_id.add(r)
-    return HttpResponseRedirect(reverse('homepage'))
+
+    return redirect('/admin_tools')
 
 
 class ListReceiptRatingView(TemplateView):
@@ -92,5 +170,77 @@ class ListReceiptRatingView(TemplateView):
 def main(request):
     return render(request, 'main.html')
 
+def admin_tools(request):
+    myreceipts = Receipts.objects.all().values()
+    template = loader.get_template('admin_tools.html')
+    context = {
+        'myreceipts': myreceipts,
+    }
+    return HttpResponse(template.render(context, request))
+
+
 def receipt(request):
     return render(request, 'roulette.html')
+
+
+def scrap_main(url):
+
+    page = requests.get(url)
+    soup_load = BeautifulSoup(page.text, "html.parser")
+    receipt = []
+    title = soup_load.find('title').text
+    title = title.replace("  - Recepty.cz - On-line kuchařka", "")
+    s1 = ["li", "class", "ingredient-assignment__group"]
+    s2 = ["div", "class", "ingredient-assignment__desc"]
+    lc = [2,4,5,6]
+
+    ingredients = scrap_receipt(soup_load, s1, s2, lc)
+
+    s1 = ["div", "class", "cooking-process__item-wrapper"]
+    s2 = ["div", "class", "cooking-process__item"]
+    lc = 5
+
+    cooking_process = scrap_process(soup_load, s1, s2, lc)
+
+    receipt.append(title)
+    receipt.append(url)
+    receipt.append(ingredients)
+    receipt.append(cooking_process)
+    return receipt
+
+def scrap_receipt(soup, search1, search2, list_code):
+    items_list = []
+    for li in soup.find_all(search1[0], {search1[1]: search1[2]}):
+        ingr = li.find_all(search2[0], {search2[1]: search2[2]})
+        for item in ingr:
+            items = []
+            ingr_split = item.text.split("\n")
+            if ingr_split[1].strip() != "":
+                items.append("")
+                items.append("")
+                items.append(ingr_split[1].strip())
+            else:
+                for i in list_code:
+                    try:
+                        items.append(ingr_split[i].strip())
+                    except IndexError:
+                        print("Scrap se nezdaril, index Error")
+                items[0] = items[0].replace(",", ".")
+                try:
+                    x = float(items[0])
+                    items[0] = x
+                except:
+                    pass
+            items_list.append(items)
+    return items_list
+
+def scrap_process(soup, search1, search2, list_code):
+    items_list = []
+    for li in soup.find_all(search1[0], {search1[1]: search1[2]}):
+        ingr = li.find_all(search2[0], {search2[1]: search2[2]})
+        items = []
+        for item in ingr:
+            ingr_split = item.text.split("\n")
+            items.append(ingr_split[list_code].strip())
+        items_list.append(items)
+    return items_list

@@ -1,5 +1,6 @@
 import json
-from models import Receipts, Ingredients
+from .models import Receipt, Ingredients
+from decimal import Decimal
 
 with open('receipts.json', 'rb') as fp:
     receipts_load = json.load(fp)
@@ -8,7 +9,7 @@ for rl in receipts_load:
 
     for item in rl[3][0]:
         p += item
-    r = Receipts(rec_title=item[0], author='WEB', rating=5, process=p)
+    r = Receipt(rec_title=item[0], author='WEB', rating=5, process=p)
     r.save()
 
     for item in rl[2]:

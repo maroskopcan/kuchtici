@@ -1,44 +1,34 @@
-<!DOCTYPE html>
-<html lang="cz">
-<head>
-    <meta charset="UTF-8">
-    <title>Food roulette</title>                                    <!-- to co sa vypise v liste -->
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'main.css' %}">
-    <style>body {background-color: #e5fff9;}</style>
-</head>
+{% extends "base.html" %}
 
+{% block page_title %}Kuchařská ruleta{% endblock page_title %}
+{% block head %}        {% endblock head %}
 
-<body>
-<div class="nadpis">
-    <h1 style="margin: 3px;">Kuchařská ruleta</h1>
-</div>
-<div class="centerOBR">
-    <img src="https://www.sazeni-online.eu/images/blog/ca0a4d2799ace80811fdefb3e7400057.jpg" alt="Ruleta s jídlem"
-         width="600"
-         height="250">
-</div>
+{% block PageTitle %}
+
 <div id="popis">
     <h2 style="margin: 15px 0px;">Název receptu: {{ receipt.rec_title }}</h2>
     <h3 style="margin: 5px 0px;">Autor: {{ receipt.author }}</h3>
     <h3 style="margin-bottom: 40px;">Hodnocení: {{ receipt.rating }}</h3>
     <h3>Co potřebujeme:</h3>
 </div>
-
-<table id="suroviny">
-    <tr>
-        <th width="50%"> název ingredience</th>
-        <th width="30%">množství</th>
-        <th width="20%">jednotka</th>
-    </tr>
-    {% for x in ingr %}
-    <tr>
-        <td>{{ x.ingr_name }}</td>
-        <td align="center">{{ x.quantity }}</td>
-        <td align="center">{{ x.unit }}</td>
-    </tr>
-    {% endfor %}
-</table>
+<section style="display: flex;">
+    <table style="flex: 40%;" id="suroviny">
+        <tr>
+            <th width="50%"> název ingredience</th>
+            <th width="30%">množství</th>
+            <th width="20%">jednotka</th>
+        </tr>
+        {% for x in ingr %}
+        <tr>
+            <td>{{ x.ingr_name }}</td>
+            <td align="center">{{ x.quantity }}</td>
+            <td align="center">{{ x.unit }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+   <img style="flex: 60%; text-align: center; margin: 50px 50px 50px 50px; "
+        src="https://ms1.ostium.cz/instance/web-recepty/j4LPW7QI/h389w574t.jpg" alt="obrázek receptu">
+</section>
 <br>
 <!--style="padding-left:10%; padding-right:10%"-->
 <div class="odsadenie">
@@ -46,5 +36,4 @@
     <div style="padding-left:10%; padding-right:10%; padding-bottom:150px;">{{ receipt.process }}</div>
 </div>
 
-</body>
-</html>
+{% endblock PageTitle %}

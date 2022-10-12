@@ -3,7 +3,6 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
 class Receipt(models.Model):
-    #objects = None
     rec_title = models.CharField(max_length=255)
     author = models.CharField(max_length=255)
     rating = models.DecimalField(decimal_places=0, max_digits=3)

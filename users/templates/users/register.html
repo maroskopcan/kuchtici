@@ -1,5 +1,47 @@
+<!DOCTYPE html>
+<html lang="cz">
+<head>
+    <meta charset="UTF-8">
+    <title>Zaregistrujte se {% block page_title %}{% endblock page_title %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"> -->
+    <style>body {background-color: #e5fff9;}</style>
+</head>
+
+<body>
 {% load crispy_forms_tags %}
 {% block content %}
+<div style="text-align: center; padding-top: 20px; font-size: 20px"
+     class="content-section">
+    <form method="POST">
+        {% csrf_token %}
+
+        <p style="font-size: 30px; text-align: left; padding-left: 100px">Zaregistrujte se</p>
+        <br>
+        {{ form|crispy }}
+        <br>
+        <div>
+            <button
+                    style="color:green; height: 50px; width: 250px; font-size: 25px; text-align: center; border-width: 3px; border-color: green;">
+                <strong>Registrovat se</strong>
+            </button>
+        </div>
+    </form>
+    <br>
+    <br>
+    <div>
+        <p>Máš už účet?</p>
+        <p>↓<p/>
+        <a style="padding: 0px; color:red; font-size: 25px; margin-bottom: 0px" href="{% url 'login' %}">Přihlas se</a>
+    </div>
+</div>
+
+{% endblock content %}
+<!-- ----------------------------------------------------------------- -->
+<!--
+{% load crispy_forms_tags %}
+
     <div class="content-section">
         <form method="POST">
             {% csrf_token %}
@@ -17,4 +59,15 @@
             </small>
         </div>
     </div>
-{% endblock content %}
+
+
+
+
+
+
+-->
+
+
+
+</body>
+</html>

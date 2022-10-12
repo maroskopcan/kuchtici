@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Co budeme vařit? Kuchařská ruleta - AdminTools</title>
+</head>
+<body>
+
+<H1>Nastroje administratora</H1>
+<form action="/upload/" method="post">
+    {% csrf_token %}
+    <div>
+        <button class="button1"
+                type="submit"><strong>Uploaduje všechny recepty z receipts.json</strong>
+        </button>                                           <!--<i> * Načte základní DB receptů</i>-->
+    </div>
+</form>
+
+<br>
+
+<form action="/del_all/" method="post">
+    {% csrf_token %}
+    <div>
+        <button class="button2"
+                type="submit"><strong>Smaže všechny recepty</strong>
+        </button>                                           <!--<i> * Smaže všechny recepty</i>-->
+    </div>
+</form>
+
+<br>
+<br>
+
+
+<form action="/scrap/" method="post">
+    {% csrf_token %}
+    Stahni z webu. Vloz URL:
+    <input name="url_name">
+    <input type="submit" value="Stahni!">
+    <br>
+    * Zkopiruj a vloz adresu receptu z www.recepty.cz <br>
+    napr: https://www.recepty.cz/recept/pikantni-spenatove-rolky-157177
+    <br>
+    <br>
+</form>
+
+<form action="/add_receipt_form/" method="post">
+{% csrf_token %}
+<table border="1">
+<caption>Zadani hlavicky noveho receptu</caption>
+<tr>
+    <td>Nazev</td>
+    <td><input name="recepis"></td>
+    <td>Autor:</td>
+    <td><input name="autor"></td>
+    <td>Hodnoceni:</td>
+    <td><input name="ratex"></td>
+    <td><input type="submit" value="Uloz a zadej ingredience"></td>
+</tr>
+</table>
+</form>
+
+<br>
+<br>
+
+<div>
+    <table style="align:center" class="centerTabulka">
+        <tr>
+            <th>Název receptu</th>
+            <th>Autor</th>
+            <th>Hodnocení</th>
+        </tr>
+        {% for x in myreceipts %}
+        <tr>
+            <td style="width:60%"><a href="/update_rec/{{ x.id }}">{{ x.rec_title }}</a> </td>
+            <td style="width:20%" align="center">{{ x.author }}</td>
+            <td style="width:10%" align="center">{{ x.rating }}</td>
+            <td style="width:10%" align="center"><a href="/delete_rec/{{ x.id }}">Smazat</a></td>
+
+        </tr>
+        {% endfor %}
+
+    </table>
+    <p style="padding-bottom:150px;"></p>
+
+</div>
+
+</body>
+</html>

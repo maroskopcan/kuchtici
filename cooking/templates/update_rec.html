@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update receipt</title>
+</head>
+<body>
+<h1>Update receipt</h1>
+
+<form action="/update_rec_form/{{ upd_.id }}" method="post">
+{% csrf_token %}
+    <table>
+        <tr>
+            <td>Nazev</td>
+            <td><input name="rec_t" value="{{ upd_.rec_title }}"></td>
+            <td>Autor</td>
+            <td><input name="rec_a" value="{{ upd_.author }}"></td>
+            <td><input type="submit" value="Uloz"></td>
+        </tr>
+    </table>
+    <br>
+    Postup
+    <br>
+
+    <textarea id="Postup" name="rec_p" rows="12" cols="100" >
+       {{ upd_.process }}
+    </textarea>
+    <br>
+    <br>
+
+</form>
+
+<br>
+<br>
+<form action="/add_ingredients/{{ upd_.id }}" method="post">
+{% csrf_token %}
+
+    <h3>Uprava surovin</h3>
+    <table border="1">
+        <tr>
+            <td>Nazev</td>
+            <td>Mnozstvi</td>
+            <td>Jednotka</td>
+        </tr>
+        <tr>
+            <td><input name="i_name"></td>
+            <td><input name="i_quant"></td>
+            <td><input name="i_unit"></td>
+            <td><input type="submit" value="Pridej"></td>
+        </tr>
+     </table>
+
+</form>
+
+<form action="/del_ingredient/{{ upd_.id }}" method="post">
+{% csrf_token %}
+    <table border="1">
+        {% for x in ingr %}
+        <tr>
+            <td>{{ x.ingr_name }}</td>
+            <td>{{ x.quantity }}</td>
+            <td>{{ x.unit }}</td>
+
+        </tr>
+        {% endfor %}
+    </table>
+
+</form>
+
+</html>

@@ -13,6 +13,33 @@ from random import choice
 import json, requests
 from bs4 import BeautifulSoup
 
+def homepage_view(request):
+    myreceipts = Receipt.objects.all().values()
+    template = loader.get_template('main.html')
+    context = {
+        'myreceipts': myreceipts,
+    }
+    return HttpResponse(template.render(context, request))
+
+# class HomepageView(TemplateView):
+#     template_name = "main.html"
+#     def get_context_data(self, **kwargs):
+#         context = super(HomepageView, self).get_context_data(**kwargs)
+#         myreceipts = Receipt.objects.all().values()
+#         template = loader.get_template('main.html')
+#         return context
+
+def roulette(request):
+    c = Receipt.objects.all().values_list('pk', flat=True)
+    r = choice(c)
+    receipt = Receipt.objects.get(pk=r)
+    ingr = Ingredients.objects.filter(rec_id=r)
+    template = loader.get_template('roulette.html')
+    context = {
+        'receipt': receipt,
+        'ingr': ingr,
+    }
+    return HttpResponse(template.render(context, request))
 
 def update_rec_form(request, id):
     t = request.POST['rec_t']
@@ -94,34 +121,6 @@ def del_all(request):
     return redirect('/admin_tools')
     # Receipt.objects.all().delete()
     # return HttpResponseRedirect(reverse('homepage'))
-
-def roulette(request):
-    c = Receipt.objects.all().values_list('pk', flat=True)
-    r = choice(c)
-    receipt = Receipt.objects.get(pk=r)
-    ingr = Ingredients.objects.filter(rec_id=r)
-    template = loader.get_template('roulette.html')
-    context = {
-        'receipt': receipt,
-        'ingr': ingr,
-    }
-    return HttpResponse(template.render(context, request))
-
-def homepage_view(request):
-    myreceipts = Receipt.objects.all().values()
-    template = loader.get_template('main.html')
-    context = {
-        'myreceipts': myreceipts,
-    }
-    return HttpResponse(template.render(context, request))
-
-# class HomepageView(TemplateView):
-#     template_name = "main.html"
-#     def get_context_data(self, **kwargs):
-#         context = super(HomepageView, self).get_context_data(**kwargs)
-#         myreceipts = Receipt.objects.all().values()
-#         template = loader.get_template('main.html')
-#         return context
 
 def upload(request):
     with open('receipts.json', 'rb') as fp:

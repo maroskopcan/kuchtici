@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ receipt.title }}</h1>
+
+    {% for rating in receipt.rating.all %}
+        <p>Rater: {{ rating.user.username }}</p>
+        <p>Score: {{ rating.score }}</p>
+        <p>Text: {{ rating.text }}</p><br><br>
+        <a href="{% url "delete_receipt_rating" rating.pk %}" class="btn btn-danger">Delete</a>
+        <a href="{% url "update_receipt_rating" rating.pk %}" class="btn btn-success">Update</a>
+        <hr>
+    {% endfor %}
+
+    <br><br>
+
+    <form action="{% url "list_receipt_rating" receipt.pk %}" method="post">
+        {% csrf_token %}
+        {{ form.score.html_name }}:
+        {{ form.score }}
+        {{ form.score.errors }}<br><br>
+        {{ form.text.html_name }}:
+        {{ form.text }}
+        {{ form.text.errors }}<br>
+        <input type="submit" value="Submit" class="btn btn-primary">
+    </form>
+{% endblock content %}

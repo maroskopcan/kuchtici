@@ -1,9 +1,19 @@
-{% block content %}
-    <h2>Byli jste úspešne odhlášeni.</h2>
+{% extends "base.html" %}
 
-        <div class="border-top pt-3">
-            <small class="text-muted">
-                <a href="{% url 'login' %}">Přihlas se</a>
-            </small>
-        </div>
+{% block page_title %}Přihlásení{% endblock page_title %}
+
+{% block PageTitle %}
+
+
+{% block content %}
+<div style="margin: 0px 10px 10px 10px;" class="nadpis">
+    <h1><a style="margin: 0px; text-decoration:none; color: #142685; " href="{% url 'homepage' %}">Kuchařská ruleta</a>
+    </h1>
+</div>
+<div style="padding: 0% 10%;" id="popis">
+    <h5>Byli jste úspešne odhlášeni.</h5>
+    <small><a style="color: #4fbd21;" href="{% url 'login' %}"><strong>Přihlas se</strong></a></small>
+</div>
 {% endblock content %}
+
+{% endblock PageTitle %}

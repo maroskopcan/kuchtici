@@ -4,15 +4,14 @@ from django.urls import reverse
 from django.views import View
 from django.views.generic import TemplateView
 from .forms import ReceiptRatingForm
-from .models import Receipt, Ingredients
+from .models import Receipt, Ingredients, ReceiptRating
 # from .forms import ReceiptRatingFrom
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 from decimal import Decimal
 from random import choice
-import json
+import json, requests
 from bs4 import BeautifulSoup
-import requests
 
 
 def update_rec_form(request, id):
@@ -21,9 +20,9 @@ def update_rec_form(request, id):
     receipt = Receipt.objects.get(id=id)
     receipt.rec_title = t
     receipt.author = a
-
     receipt.save()
     return HttpResponseRedirect(reverse('homepage'))
+
 def add_ingredients(request, id):
     i1 = request.POST['i_name']
     i2 = request.POST['i_quant']
@@ -34,22 +33,25 @@ def add_ingredients(request, id):
     i.rec_id.add(id)
     red = redirect("/update_rec/"+str(id))
     return red
+
 def update_rec(request, id):
     upd_ = Receipt.objects.get(id=id)
     ingr = Ingredients.objects.filter(rec_id = id)
+    #rat = ReceiptRating.objects.get(receipt=id)
     template = loader.get_template('update_rec.html')
     context = {
         'upd_': upd_,
         'ingr': ingr,
+         #'rat': rat,
     }
     return HttpResponse(template.render(context, request))
+
 def update_rec_form(request, id):
     t = request.POST['rec_t']
     a = request.POST['rec_a']
     receipt = Receipt.objects.get(id=id)
     receipt.rec_title = t
     receipt.author = a
-
     receipt.save()
     return HttpResponseRedirect(reverse('admin_tools'))
 
@@ -65,6 +67,7 @@ def add_receipt_form(request):
     rece_ = Receipt(rec_title=x, author=y, rating=z)
     rece_.save()
     return HttpResponseRedirect(reverse('admin_tools'))
+
 def scrap(request):
     url = request.POST['url_name']
     receipts = scrap_main(url)
@@ -73,7 +76,6 @@ def scrap(request):
         p += item
     r = Receipt(rec_title=receipts[0], author='WEB', rating=5, process=p)
     r.save()
-
     for item in receipts[2]:
         i1 = item[2]
         i2 = item[0]
@@ -88,11 +90,10 @@ def scrap(request):
     return redirect("admin_tools")
 
 def del_all(request):
-    Receipts.objects.all().delete()
-    return redirect('/admin_tools')
-
     Receipt.objects.all().delete()
-    return HttpResponseRedirect(reverse('homepage'))
+    return redirect('/admin_tools')
+    # Receipt.objects.all().delete()
+    # return HttpResponseRedirect(reverse('homepage'))
 
 def roulette(request):
     c = Receipt.objects.all().values_list('pk', flat=True)
@@ -118,7 +119,6 @@ def homepage_view(request):
 #     template_name = "main.html"
 #     def get_context_data(self, **kwargs):
 #         context = super(HomepageView, self).get_context_data(**kwargs)
-#
 #         myreceipts = Receipt.objects.all().values()
 #         template = loader.get_template('main.html')
 #         return context
@@ -126,7 +126,6 @@ def homepage_view(request):
 def upload(request):
     with open('receipts.json', 'rb') as fp:
         receipts_load = json.load(fp)
-
     for rl in receipts_load:
         print(rl)
         p = ""
@@ -134,7 +133,6 @@ def upload(request):
             p += item
         r = Receipt(rec_title=rl[1], author='WEB', rating=5, process=p)
         r.save()
-
         for item in rl[3]:
             i1 = item[2]
             i2 = item[0]
@@ -146,9 +144,7 @@ def upload(request):
             i = Ingredients(ingr_name=i1, quantity=i2, unit=i3, price=0)
             i.save()
             i.rec_id.add(r)
-
     return redirect('/admin_tools')
-
 
 class ListReceiptRatingView(TemplateView):
     template_name = "receipt_rating.html"
@@ -159,20 +155,11 @@ class ListReceiptRatingView(TemplateView):
             'form': ReceiptRatingForm(),
         })
         return context
-    # v main na recepte tlacitko ohodnot recept
-    # <a href="{% url 'receipt_rating' receipt.pk %}" class="btn btn-success">Hodnocení</a>
+                            # v main na recepte tlacitko ohodnot recept
+                            # <a href="{% url 'receipt_rating' receipt.pk %}" class="btn btn-success">Hodnocení</a>
 
 def main(request):
     return render(request, 'main.html')
-
-def admin_tools(request):
-    myreceipts = Receipts.objects.all().values()
-    template = loader.get_template('admin_tools.html')
-    context = {
-        'myreceipts': myreceipts,
-    }
-    return HttpResponse(template.render(context, request))
-
 
 def receipt(request):
     return render(request, 'roulette.html')
@@ -180,12 +167,15 @@ def receipt(request):
 def about(request):
     return HttpResponse(redirect('about'))
 
-
-
-
+def admin_tools(request):
+    myreceipts = Receipt.objects.all().values()
+    template = loader.get_template('admin_tools.html')
+    context = {
+        'myreceipts': myreceipts,
+    }
+    return HttpResponse(template.render(context, request))
 
 def scrap_main(url):
-
     page = requests.get(url)
     soup_load = BeautifulSoup(page.text, "html.parser")
     receipt = []
@@ -194,15 +184,11 @@ def scrap_main(url):
     s1 = ["li", "class", "ingredient-assignment__group"]
     s2 = ["div", "class", "ingredient-assignment__desc"]
     lc = [2,4,5,6]
-
     ingredients = scrap_receipt(soup_load, s1, s2, lc)
-
     s1 = ["div", "class", "cooking-process__item-wrapper"]
     s2 = ["div", "class", "cooking-process__item"]
     lc = 5
-
     cooking_process = scrap_process(soup_load, s1, s2, lc)
-
     receipt.append(title)
     receipt.append(url)
     receipt.append(ingredients)
@@ -245,3 +231,5 @@ def scrap_process(soup, search1, search2, list_code):
             items.append(ingr_split[list_code].strip())
         items_list.append(items)
     return items_list
+
+

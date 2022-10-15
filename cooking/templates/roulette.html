@@ -5,18 +5,29 @@
 
 {% block PageTitle %}
 
-<div id="popis">
-    <h2 style="margin: 15px 0px;">Název receptu: {{ receipt.rec_title }}</h2>
-    <h3 style="margin: 5px 0px;">Autor: {{ receipt.author }}</h3>
-    <h3 style="margin-bottom: 40px;">Hodnocení: {{ receipt.rating }}</h3>
-    <h3>Co potřebujeme:</h3>
-</div>
-<section style="display: flex;">
-    <table style="flex: 40%;" id="suroviny">
+<div class="backgroundMain">
+    <h3 style="opacity:0">blind-none</h3>
+    <h3 style="opacity:0">blind-none</h3>
+    <h3 style="opacity:0">blind-none</h3>
+    <div style="margin: 0px 10px 10px 10px;" class="nadpis">
+        <h1><a style="margin: 0px; text-decoration:none; color: #142685; " href="{% url 'homepage' %}">Kuchařská
+            ruleta</a></h1>
+    </div>
+    <div style="margin-left: 15%; margin-right: 15%; ">
+        <h3 style="margin-left: 15%; ">Název receptu: {{ receipt.rec_title }}</h3>
+        <h5 style="margin-left: 15%; ">Autor: {{ receipt.author }}</h5>
+        <h5 style="margin-left: 15%; ">Hodnocení: {{ receipt.rating }}</h5>
+        <button style="margin-left: 57%;" class="ButtonMenu">
+        <h5><a style="color: #142685; text-decoration:none; height: 15px; " class="MainMenuButtons" href="{% url 'roulette' %}">Jiný recept</a></h5></button>
+        <h5 style="margin-left: 15%; ">Co potřebujeme:</h5>
+    </div>
+    <!--<section style="display: flex;">-->
+
+    <table id="suroviny">
         <tr>
-            <th width="50%"> název ingredience</th>
-            <th width="30%">množství</th>
-            <th width="20%">jednotka</th>
+            <th width="25%"> název ingredience</th>
+            <th width="20%">množství</th>
+            <th width="15%">jednotka</th>
         </tr>
         {% for x in ingr %}
         <tr>
@@ -26,14 +37,16 @@
         </tr>
         {% endfor %}
     </table>
-   <img style="flex: 60%; text-align: center; margin: 50px 50px 50px 50px; "
-        src="https://ms1.ostium.cz/instance/web-recepty/j4LPW7QI/h389w574t.jpg" alt="obrázek receptu">
-</section>
-<br>
-<!--style="padding-left:10%; padding-right:10%"-->
-<div class="odsadenie">
-    <h3 style="padding-left:10%; padding-right:10%">Postup: </h3>
-    <div style="padding-left:10%; padding-right:10%; padding-bottom:150px;">{{ receipt.process }}</div>
+    <!--   <img style="flex: 25%; text-align: center; margin: 50px 50px 50px 10px; "-->
+    <!--        src="https://ms1.ostium.cz/instance/web-recepty/j4LPW7QI/h389w574t.jpg" alt="obrázek receptu">-->
+    <br>
+<textara>
+    <div style="margin-left: 18%; margin-right: 18%; ">
+        <h5 style="padding-left:10%; padding-right:10%">Postup: </h5>
+        <div style="padding-left:10%; padding-right:10%; padding-bottom:150px;">{{ receipt.process }}</div>
+        <h3 style="opacity:0">blind-none</h3>
+        <h3 style="opacity:0">blind-none</h3>
+    </div>
+</textara>
 </div>
-
 {% endblock PageTitle %}

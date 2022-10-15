@@ -1,73 +1,31 @@
-<!DOCTYPE html>
-<html lang="cz">
-<head>
-    <meta charset="UTF-8">
-    <title>Zaregistrujte se {% block page_title %}{% endblock page_title %}</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'main.css' %}">
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"> -->
-    <style>body {background-color: #e5fff9;}</style>
-</head>
+{% extends "base.html" %}
 
-<body>
-{% load crispy_forms_tags %}
+{% block page_title %}Registrace{% endblock page_title %}
+
+{% block PageTitle %}
+
+<!--<div style="opacity: 0.08; " class="backgroundRest"></div>-->
+
 {% block content %}
-<div style="text-align: center; padding-top: 20px; font-size: 20px"
-     class="content-section">
+<main style="margin: 0px 10px 10px 10px; " class="nadpis">
+    <h1><a style="margin: 0px; text-decoration:none; color: #142685; " href="{% url 'homepage' %}">Kuchařská ruleta</a>
+    </h1>
+</main>
+{% load crispy_forms_tags %}
+<div style="padding: 0% 10%; opacity: 0.9;  " id="popis">
     <form method="POST">
         {% csrf_token %}
-
-        <p style="font-size: 30px; text-align: left; padding-left: 100px">Zaregistrujte se</p>
+        <fieldset>
+            <h4>Registruj se</h4>
+            {{ form }}
+        </fieldset>
         <br>
-        {{ form|crispy }}
-        <br>
-        <div>
-            <button
-                    style="color:green; height: 50px; width: 250px; font-size: 25px; text-align: center; border-width: 3px; border-color: green;">
-                <strong>Registrovat se</strong>
-            </button>
-        </div>
+        <button style="background-color: #4fbd21;">Registrovat se</button>
     </form>
     <br>
-    <br>
-    <div>
-        <p>Máš už účet?</p>
-        <p>↓<p/>
-        <a style="padding: 0px; color:red; font-size: 25px; margin-bottom: 0px" href="{% url 'login' %}">Přihlas se</a>
-    </div>
+    <small>Máš už účet? <a style="color: #4fbd21;" href="{% url 'login' %}"><strong>Přihlas se</strong></a></small>
 </div>
 
 {% endblock content %}
-<!-- ----------------------------------------------------------------- -->
-<!--
-{% load crispy_forms_tags %}
 
-    <div class="content-section">
-        <form method="POST">
-            {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Registruj se</legend>
-                 {{ form|crispy }}
-            </fieldset>
-            <div class="form-group">
-                <button class="x" type="submit">Registrovat se</button>
-            </div>
-        </form>
-        <div class="border-top pt-3">
-            <small class="text-muted">
-                Máš už úcet? <a class="ml-2" href="{% url 'login' %}">Přihlas se</a>
-            </small>
-        </div>
-    </div>
-
-
-
-
-
-
--->
-
-
-
-</body>
-</html>
+{% endblock PageTitle %}

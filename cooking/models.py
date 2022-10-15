@@ -19,7 +19,7 @@ class Ingredients(models.Model):
 
 class Category(models.Model):
     category_id = models.ManyToManyField(
-        Receipts, related_name="category",
+        Receipt, related_name="category",
     )
     category_name = models.CharField(max_length=64, blank=True)
 class ReceiptRating(models.Model):

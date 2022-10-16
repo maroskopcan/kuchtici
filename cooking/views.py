@@ -71,21 +71,23 @@ def add_ingredients(request, id):
 def update_rec(request, id):
     upd_ = Receipt.objects.get(id=id)
     ingr = Ingredients.objects.filter(rec_id = id)
-    #rat = ReceiptRating.objects.get(receipt=id)
+    # rat = ReceiptRating.objects.get(receipt=id)
     template = loader.get_template('update_rec.html')
     context = {
         'upd_': upd_,
         'ingr': ingr,
-         #'rat': rat,
+         # 'rat': rat,
     }
     return HttpResponse(template.render(context, request))
 
 def update_rec_form(request, id):
     t = request.POST['rec_t']
     a = request.POST['rec_a']
+    # h = request.POST['rec_h']
     receipt = Receipt.objects.get(id=id)
     receipt.rec_title = t
     receipt.author = a
+    # receipt.______ = h
     receipt.save()
     return HttpResponseRedirect(reverse('admin_tools'))
 

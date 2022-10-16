@@ -1,8 +1,10 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
-{% block page_title %}Admininstrátor{% endblock page_title %}
+{% block page_title %} Uživatel {% endblock page_title %}
 
 {% block head %}
+<div class="backgroundMain">
 <div style="margin: 0px 10px 10px 10px;" class="nadpis">
     <h1>
         <a style="margin: 0px; text-decoration:none; color: #142685; " href="{% url 'homepage' %}">
@@ -12,9 +14,11 @@
 </div>
 {% endblock head %}
 
-{% load crispy_forms_tags %}
 
-    <div class="content-section">
+
+
+{% block PageTitle %}
+    <div  style="padding: 0% 25%; opacity: 0.9 " id="popis">
         <div class="media">
             <img class="rounded-circle account-img" src="{{ user.profile.image.url }}" width="64px" height="64px">
             <div class="media-body">
@@ -35,5 +39,9 @@
             </div>
         </form>
     </div>
-
-{% endblock content %}
+               <h3 style="opacity:0; margin:0%; ">blind-none</h3>
+           <h3 style="opacity:0; margin:0%; ">blind-none</h3>
+               <h3 style="opacity:0; margin:0%; ">blind-none</h3>
+           <h3 style="opacity:0; margin:0%; ">blind-none</h3>
+</div>
+{% endblock PageTitle %}

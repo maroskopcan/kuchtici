@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django. contrib import messages
 from django.urls import reverse
+from .models import Profile
 
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from django.http import HttpResponse, HttpResponseRedirect
@@ -10,7 +11,9 @@ def register(request):
     if request.method =='POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            profile = Profile(user = user)
+            profile.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f'Účet úspešne založen pro {username}! Můžeš se přihlásit.')
             return redirect('login')

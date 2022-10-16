@@ -22,6 +22,7 @@ class Category(models.Model):
         Receipt, related_name="category",
     )
     category_name = models.CharField(max_length=64, blank=True)
+
 class ReceiptRating(models.Model):
     receipt = models.ForeignKey(
         Receipt, related_name="ratings",

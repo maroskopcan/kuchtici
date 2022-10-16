@@ -7,6 +7,8 @@ from cooking.views import homepage_view, roulette, upload, del_all, main, receip
 from cooking.views import homepage_view, roulette, upload, del_all, ListReceiptRatingView, main, receipt
 from users import views as user_views
 from django.contrib.auth import views as auth_views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', homepage_view, name='homepage'),
@@ -34,4 +36,4 @@ urlpatterns = [
     path('about/', about, name='about'),
     path('profile/', user_views.profile, name='profile'),
     #path('roulette/', receipt),
-]  #+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

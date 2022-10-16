@@ -24,14 +24,14 @@ class Category(models.Model):
     category_name = models.CharField(max_length=64, blank=True)
 class ReceiptRating(models.Model):
     receipt = models.ForeignKey(
-        Receipt, related_name="review",
+        Receipt, related_name="ratings",
         on_delete=models.CASCADE
     )
     score = models.IntegerField(
-        validators=[MinValueValidator(0), MaxValueValidator(5)]
+        validators=[MinValueValidator(0), MaxValueValidator(10)]
     )
     user = models.ForeignKey(
-        get_user_model(), related_name="user_reviews",
+        get_user_model(), related_name="user_ratings",
         on_delete=models.CASCADE
     )
     text = models.TextField()

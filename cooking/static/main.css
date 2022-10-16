@@ -99,40 +99,45 @@
     border: 1px solid;
 }
 
-.backgroundMain{
+
+
+
+/*
+.backgroundRest{
     background-repeat: repeat-y;
+   /* background-image: url("https://img.freepik.com/free-vector/hand-drawn-food-elements_1411-48.jpg?w=1380&t=st=1665784660~exp=1665785260~hmac=bc568d1f3b7a249ab53df7509cfe47e41ad32c6fbe740d2c43939f134792a02a");
+   * /
     background-image: url("https://chiropractorfrederick.net/wp-content/uploads/2017/08/background.jpg");
-    opacity: 0.7;
+    opacity: 0.9;
     position: relative;
     background-size: cover;
-
+    width: 100%;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
-}
-.backgroundRest{
-    /*background-repeat: repeat-y;*/
-    background-image: url("https://img.freepik.com/free-vector/hand-drawn-food-elements_1411-48.jpg?w=1380&t=st=1665784660~exp=1665785260~hmac=bc568d1f3b7a249ab53df7509cfe47e41ad32c6fbe740d2c43939f134792a02a");
-    opacity: 0.7;
-        position: relative;
+} */
 
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
+.backgroundMain{
+    opacity: 0.9;
+    background-image: url("backgroundMainCutted.jpg");
+    background-position: center;
+    background-repeat: repeat-y;
+
 }
 
-.backgroundMainSecond{
-    background-image: url("https://cdn.pixabay.com/photo/2021/01/26/15/48/vegetables-5951982_960_720.jpg");"
-    opacity: 0.7;
+.log{
+    opacity: 0.9;
+    background-image: url("https://chiropractorfrederick.net/wp-content/uploads/2017/08/background.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
 }
 
 
 
-
-
-
+                                /*  nepouzivame tie buttony dole  */
 .buttonUkazRecepty {
     text-align: center;
     background-color: buttonface;
@@ -149,7 +154,6 @@
     left: 50%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-
     cursor: pointer;
 }
 .buttonSmazRecepty {
@@ -166,10 +170,9 @@
     left: 50%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-
     cursor: pointer;
 }
-
+                                /*  nepouzivame tie buttony hore  */
 
 
 .topnav {
@@ -182,10 +185,10 @@
 }
 
 .topnav input[type=text] {
-  float: right;
+  float: left;
   padding: 6px;
   margin-top: 8px;
-  margin-right: 3%;
+
   border: none;
   font-size: 17px;
 }

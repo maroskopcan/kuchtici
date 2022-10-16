@@ -7,25 +7,38 @@
 <!--<div style="opacity: 0.08; " class="backgroundRest"></div>-->
 
 {% block content %}
-<main style="margin: 0px 10px 10px 10px; " class="nadpis">
-    <h1><a style="margin: 0px; text-decoration:none; color: #142685; " href="{% url 'homepage' %}">Kuchařská ruleta</a>
-    </h1>
-</main>
-{% load crispy_forms_tags %}
-<div style="padding: 0% 10%; opacity: 0.9;  " id="popis">
-    <form method="POST">
-        {% csrf_token %}
-        <fieldset>
-            <h4>Registruj se</h4>
-            {{ form }}
-        </fieldset>
-        <br>
-        <button style="background-color: #4fbd21;">Registrovat se</button>
-    </form>
-    <br>
-    <small>Máš už účet? <a style="color: #4fbd21;" href="{% url 'login' %}"><strong>Přihlas se</strong></a></small>
-</div>
 
+<div class="log">
+    <h3 style="opacity:0">blind-none</h3>
+    <div style="margin: 0px 10px 10px 10px; " class="nadpis">
+        <h1><a style="margin: 0px; text-decoration:none; color: #142685; " href="{% url 'homepage' %}">Kuchařská
+            ruleta</a>
+        </h1>
+    </div>
+
+
+    {% load crispy_forms_tags %}
+    <div style="padding: 0% 25%; opacity: 0.9;  " id="popis">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset>
+                <h4>Registruj se</h4>
+                {{ form }}
+            </fieldset>
+            <br>
+            <button style="background-color: #4fbd21;">Registrovat se</button>
+        </form>
+        <br>
+        <div>Máš už účet? <a style="color: #4fbd21;" href="{% url 'login' %}"><strong>Přihlas se</strong></a></div>
+    </div>
+    <h3 style="opacity:0">blind-none</h3>
+    <h3 style="opacity:0">blind-none</h3>
+    <h3 style="opacity:0">blind-none</h3>
+    <h3 style="opacity:0">blind-none</h3>
+    <h3 style="opacity:0">blind-none</h3>
+    <h3 style="opacity:0">blind-none</h3>
+    <h3 style="opacity:0; margin:0%; ">blind-none</h3>
+</div>
 {% endblock content %}
 
 {% endblock PageTitle %}

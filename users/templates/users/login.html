@@ -7,22 +7,40 @@
 <!--<div style="opacity: 0.08; " class="backgroundRest"></div>-->
 
 {% block content %}
-<div style="margin: 0px 10px 10px 10px;" class="nadpis">
-    <h1><a style="margin: 0px; text-decoration:none; color: #142685; " href="{% url 'homepage' %}">Kuchařská ruleta</a>
-    </h1>
-</div>
-{% load crispy_forms_tags %}
-<div style="padding: 0% 10%; opacity: 0.9; " id="popis">
-    <form method="POST">
-        {% csrf_token %}
-        <h4>Přihlásit se</h4>
-        {{ form }}
-        <br><br>
-        <button style="background-color: #4fbd21;">Přihlásit se</button>
-    </form>
-    <br>
-    <small>Nemáš účet? <a style="color: #4fbd21;" href="{% url 'register' %}"><strong>Registruj
-        se</strong></a></small>
+<div class="log">
+    <h3 style="opacity:0">blind-none</h3>
+    <div style="margin: 0px 10px 10px 10px; " class="nadpis">
+        <h1><a style="margin: 0px; text-decoration:none; color: #142685; " href="{% url 'homepage' %}">Kuchařská
+            ruleta</a>
+        </h1>
+    </div>
+
+
+    {% load crispy_forms_tags %}
+    <div style="padding: 0% 25%; " id="popis">
+        <form method="POST">
+            {% csrf_token %}
+            <h4>Přihlásit se</h4>
+            {{ form }}
+            <br><br>
+            <button style="background-color: #4fbd21;">Přihlásit se</button>
+        </form>
+        <br>
+        <div>Nemáš účet? <a style="color: #4fbd21;" href="{% url 'register' %}"><strong>Registruj se</strong></a></div>
+    </div>
+    <h3 style="opacity:0">blind-none</h3>
+    <h3 style="opacity:0">blind-none</h3>
+    <h3 style="opacity:0">blind-none</h3>
+    <h3 style="opacity:0">blind-none</h3>
+    <h3 style="opacity:0">blind-none</h3>
+    <h3 style="opacity:0">blind-none</h3>
+    <h3 style="opacity:0">blind-none</h3>
+    <h3 style="opacity:0">blind-none</h3>
+    <h3 style="opacity:0">blind-none</h3>
+    <h3 style="opacity:0">blind-none</h3>
+    <h3 style="opacity:0">blind-none</h3>
+    <h3 style="opacity:0">blind-none</h3>
+    <h3 style="opacity:0; margin:0%; ">blind-none</h3>
 </div>
 {% endblock content %}
 

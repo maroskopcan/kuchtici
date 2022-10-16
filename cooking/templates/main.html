@@ -21,9 +21,6 @@
         <section style="display: flex; text-align: center; margin-bottom: 0px; ">
             <div style="margin-top: 50px;"></div>
             <nav style="flex: 75%">
-                <!--            <h3 style="opacity:0">blind-none</h3>-->
-                <h3 style="opacity:0">blind-none</h3>
-                <h3 style="opacity:0">blind-none</h3>
                 <h3 style="opacity:0">blind-none</h3>
                 <h3 style="opacity:0">blind-none</h3>
                 <h1>
@@ -32,11 +29,11 @@
             </nav>
 
             <nav style="margin: 3% 1% 0px 0px;" class="Buttons_Menu">
-                <button class="ButtonMenu">
-                    <a style="color: #142685; text-decoration:none;" class="MainMenuButtons"
-                       href="/">Domov</a>
-                </button>
-                <br>
+<!--                <button class="ButtonMenu">-->
+<!--                    <a style="color: #142685; text-decoration:none;" class="MainMenuButtons"-->
+<!--                       href="/">Domov</a>-->
+<!--                </button>-->
+<!--                <br>-->
                 <button class="ButtonMenu">
                     <a style="color: #142685; text-decoration:none;" class="MainMenuButtons"
                        href="{% url 'about' %}">O téhle stránce</a>
@@ -67,9 +64,7 @@
                 <br>
                 <button class="ButtonMenu">
                     <a style="color: #142685; text-decoration:none;" class="MainMenuButtons"
-                       href="{% url 'profile' %}">Profil
-
-                    </a>
+                       href="{% url 'profile' %}">Profil</a>
                 </button>
             </nav>
         </section>
@@ -83,15 +78,10 @@
                 <strong>Spusť ruletu!</strong>
             </a>
         </button>                                                   <!--<i> * Vylosuje jídlo</i>-->
-    </div>
 
-        <div style=" margin:0px; border: 0px 0px 10px 0px; padding: 0px 20%; opacity: 0.9; background-color:white; ">
-            <p style="opacity:0; margin:0px;">blind-none</p>
-            <h2 style="margin:0px;">Seznam receptů: {{ receipt.rec_title }}</h2>
+         <p style="opacity:0; margin:0px;">blind-none</p>
+        <h2 style=" padding: 0px 25%; opacity: 0.9; margin-bottom: 10px; ">Seznam receptů: {{ receipt.rec_title }}</h2>
 
-    </div>
-
-    <div class="backgroundRest">
         <!--    <form action="upload/" method="post"> {% csrf_token %}-->
         <!--        <button class="buttonUkazRecepty"-->
         <!--                type="submit"><strong>Ukáže všechny recepty</strong>-->
@@ -102,10 +92,10 @@
         <!--                type="submit"><strong>Smaž vše</strong>-->
         <!--        </button>                                           &lt;!&ndash;<i> * Smaže všechny recepty</i>&ndash;&gt;-->
         <!--    </form>-->
+<!--        </div>-->
 
 
-
-        <div style="padding: 0% 20%; " id="centerTabulka">
+        <div style="padding: 0% 25%; " id="centerTabulka">
             <table>
                 <tr>
                     <th>Název receptu</th>
@@ -116,16 +106,16 @@
                 <tr>
                     <td style="width:60% ;"><a style="color:black;" href="/update_rec/{{ x.id }}">{{ x.rec_title }}</a>
                     </td>
-                    <td style="width:35%; text-align:center">{{ x.author }}</td>
-                    <td style="width:35%; text-align:center">{{ x.rating }}</td>
+                    <td style="width:20%; text-align:center">{{ x.author }}</td>
+                    <td style="width:20%; text-align:center">{{ x.rating }}</td>
                 </tr>
                 {% endfor %}
             </table>
         </div>
-        <h3 style="opacity:0">blind-none</h3>
-        <h3 style="opacity:0">blind-none</h3>
+        <h3 style="opacity:0; margin:0%; ">blind-none</h3>
+        <h3 style="opacity:0; margin:0%; ">blind-none</h3>
         <!--    <h2 style="text-align:center; border-top:20px; ">Dobrou chuť !</h2>-->
-    </div>
 
+    </div>
 </div>
 {% endblock PageTitle %}

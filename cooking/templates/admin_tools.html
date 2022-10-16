@@ -3,91 +3,94 @@
 {% block page_title %}Admininstrátor{% endblock page_title %}
 
 {% block head %}
-<div style="margin: 0px 10px 10px 10px;" class="nadpis">
-    <h1>
-        <a style="margin: 0px; text-decoration:none; color: #142685; " href="{% url 'homepage' %}">
-            Kuchařská ruleta
-        </a>
-    </h1>
-</div>
+
 {% endblock head %}
 
 {% block PageTitle %}
 
 <!--<div style="opacity: 0.08;" class="backgroundRest"></div>-->
+<div class="backgroundMain">
+    <h3 style="opacity:0">blind-none</h3>
+    <div style="margin: 0px 10px 10px 10px;" class="nadpis">
+        <h1>
+            <a style="margin: 0px; text-decoration:none; color: #142685; " href="{% url 'homepage' %}">
+                Kuchařská ruleta
+            </a>
+        </h1>
+    </div>
 
-<div style="padding: 0% 10%; opacity: 0.9 " id="popis">
-    <h4>Přidáni receptu</h4>
-    <form action="/scrap/" method="post">
-        {% csrf_token %}
+    <div style="padding: 0% 25%; opacity: 0.9 " id="popis">
+        <h4>Přidáni receptu</h4>
+        <form action="/scrap/" method="post">
+            {% csrf_token %}
+            <h5>1. Vlož URL</h5>
+            <input name="url_name"><br><br>
+            <button style="margin-left: 50px; background-color: #4fbd21; "><strong>Stáhni a ulož</strong></button>
+        </form><br>
+
+        <h5>2. Zadáni nového receptu</h5>
+        <form action="/add_receipt_form/" method="post">
+            {% csrf_token %}
+            <tr>
+                <td>Název:</td><br>
+                <td><input style="margin-left: 100px; " name="recepis"></td><br>
+                <td>Autor:</td><br>
+                <td><input style="margin-left: 100px; " name="autor"></td><br>
+                <td>Hodnocení:</td><br>
+                <td ><input style="margin-left: 100px; " name="ratex"></td><br><br>
+                <td><button style="margin-left: 50px; background-color: #4fbd21; "><strong>Ulož a zadej ingredience</strong></button></td>
+            </tr>
+        </form>
         <br>
-        <h5>1. Vlož URL</h5>
-        <input name="url_name">
-        <button style="margin-left: 15px; background-color: #4fbd21; "><strong>Stáhni a ulož</strong></button>
-        <br>
-        <br>
-    </form>
+        <section>
+            <div class="topnav">
+                <input type="text" placeholder="Vyhledej recept...">
 
-    <h5>2. Zadáni nového receptu</h5>
-    <form action="/add_receipt_form/" method="post">
-        {% csrf_token %}
-        <tr>
-            <td>Název:</td>
-            <td><input name="recepis"></td>
-            <td>Autor:</td>
-            <td><input name="autor"></td>
-            <td>Hodnocení:</td>
-            <td><input name="ratex"></td>
-            <td>
-                <button style="margin-left: 15px; background-color: #4fbd21; "><strong>Ulož a zadej ingredience</strong>
-                </button>
-            </td>
-        </tr>
-    </form>
-    <br>
-    <section>
+            </div>
+        </section>
 
-        <div class="topnav">
-        <input type="text" placeholder="Vyhledej recept...">
-        </div>
+        <!--    <br>-->
+        <!--    <section style="display: flex; text-align: center;  ">-->
+        <!--        <form style="flex:50%; "  action="/del_all/" method="post">-->
+        <!--            {% csrf_token %}-->
+        <!--            <button class="button2"-->
+        <!--                    type="submit">Smaž všechny recepty      &lt;!&ndash;<i> * Smaže všechny recepty</i>&ndash;&gt;-->
+        <!--            </button>-->
+        <!--        </form>-->
+        <!--        <form style="flex:50%; "  action="/upload/" method="post">-->
+        <!--            {% csrf_token %}-->
+        <!--            <button class="button1"-->
+        <!--                    type="submit">Načti všechny recepty  &lt;!&ndash;<i> * Načte základní DB receptů</i>&ndash;&gt;-->
+        <!--            </button>-->
+        <!--        </form>-->
+        <!--    </section>-->
+    </div>
 
 
-    </section>
-    <!--    <br>-->
-    <!--    <section style="display: flex; text-align: center;  ">-->
-    <!--        <form style="flex:50%; "  action="/del_all/" method="post">-->
-    <!--            {% csrf_token %}-->
-    <!--            <button class="button2"-->
-    <!--                    type="submit">Smaž všechny recepty      &lt;!&ndash;<i> * Smaže všechny recepty</i>&ndash;&gt;-->
-    <!--            </button>-->
-    <!--        </form>-->
-    <!--        <form style="flex:50%; "  action="/upload/" method="post">-->
-    <!--            {% csrf_token %}-->
-    <!--            <button class="button1"-->
-    <!--                    type="submit">Načti všechny recepty  &lt;!&ndash;<i> * Načte základní DB receptů</i>&ndash;&gt;-->
-    <!--            </button>-->
-    <!--        </form>-->
-    <!--    </section>-->
-</div>
-<br>
+    <p style="opacity:0; margin:0px;">blind-none</p>
+    <h2 style=" padding: 0px 25%; opacity: 0.9; margin-bottom: 10px; ">Seznam receptů: {{ receipt.rec_title }}</h2>
 
-<div style="align:center; color: black; opacity: 0.9; padding: 0% 10%;" id="centerTabulka">
-    <table>
-        <tr>
-            <th style="width:40%; ">Název receptu</th>
-            <th style="width:20%; text-align:center">Autor</th>
-            <th style="width:20%; text-align:center">Hodnocení</th>
-            <th style="width:20%; text-align:center">Smazáni</th>
-        </tr>
-        {% for x in myreceipts %}
-        <tr>
-            <td style="color:black ;"><a style="color:black;" href="/update_rec/{{ x.id }}">{{ x.rec_title }}</a></td>
-            <td style="text-align:center">{{ x.author }}</td>
-            <td style="text-align:center">{{ x.rating }}</td>
-            <td style="text-align:center"><a style="color:red;" href="/delete_rec/{{ x.id }}">Smazat</a></td>
-        </tr>
-        {% endfor %}
-    </table>
 
+    <div style="align:center; color: black; opacity: 0.9; padding: 0% 25%;" id="centerTabulka">
+        <table>
+            <tr>
+                <th style="width:40%; ">Název receptu</th>
+                <th style="width:20%; text-align:center">Autor</th>
+                <th style="width:20%; text-align:center">Hodnocení</th>
+                <th style="width:20%; text-align:center">Smazáni</th>
+            </tr>
+            {% for x in myreceipts %}
+            <tr>
+                <td style="color:black ;"><a style="color:black;" href="/update_rec/{{ x.id }}">{{ x.rec_title }}</a>
+                </td>
+                <td style="text-align:center">{{ x.author }}</td>
+                <td style="text-align:center">{{ x.rating }}</td>
+                <td style="text-align:center"><a style="color:red;" href="/delete_rec/{{ x.id }}">Smazat</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+           <h3 style="opacity:0; margin:0%; ">blind-none</h3>
+           <h3 style="opacity:0; margin:0%; ">blind-none</h3>
+    </div>
 </div>
 {% endblock PageTitle %}
